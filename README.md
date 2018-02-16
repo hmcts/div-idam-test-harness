@@ -16,10 +16,10 @@ Until then, the package can be installed from its github URL, examples:
 
 ```bash
 # Install the latest version
-yarn add https://github.com/hmcts/div-idam-express-test-harness
+yarn add https://github.com/hmcts/div-idam-test-harness
 
 # Install a specific version
-yarn add https://github.com/hmcts/div-idam-express-test-harness#1.0.10
+yarn add https://github.com/hmcts/div-idam-test-harness#1.0.11
 ```
 
 
