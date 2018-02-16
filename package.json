@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/div-idam-test-harness",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Test harness for the IdAM Express Middleware",
   "license": "MIT",
   "main": "src/index.js",
