@@ -1,6 +1,7 @@
 const sinon = require('sinon');
 const { expect } = require('chai');
 const request = require('request-promise-native');
+const socksAgent = require('socks5-https-client/lib/Agent');
 const idamExpress = require('@hmcts/div-idam-express-middleware');
 const testHarness = require('./index');
 
@@ -117,6 +118,47 @@ describe('test harness unit tests', () => {
         testHarness.createUser(extendedArgs);
       }).to.not.throw();
       expect(request.post.calledWith(`${idamApiUrl}/accounts`)).to.equal(true);
+    });
+
+    it('uses the socks proxy when creating a user with a socks proxy set', () => {
+      const extendedArgs = Object.assign({}, args, { testGroupCode: 'test' });
+      const proxy = 'socks5://proxyhost:8080';
+
+      const expectedOptions = {
+        headers: { 'Content-Type': 'application/json' },
+        body: '{"email":"testUser@example.com","forename":"Test","surname":"User","userGroup":{"code":"test"},"password":"passWord123!","levelOfAccess":"1"}',
+        strictSSL: false,
+        agentClass: socksAgent,
+        socksHost: 'proxyhost',
+        socksPort: '8080'
+      };
+
+      postStub.returns('success');
+
+      expect(() => {
+        testHarness.createUser(extendedArgs, proxy);
+      }).to.not.throw();
+
+      expect(request.post.calledWith(`${idamApiUrl}/testing-support/accounts`, expectedOptions)).to.equal(true);
+    });
+
+    it('uses the http proxy when creating a user with a http proxy set', () => {
+      const extendedArgs = Object.assign({}, args, { testGroupCode: 'test' });
+      const proxy = 'http://proxyhost:8080';
+
+      const expectedOptions = {
+        headers: { 'Content-Type': 'application/json' },
+        body: '{"email":"testUser@example.com","forename":"Test","surname":"User","userGroup":{"code":"test"},"password":"passWord123!","levelOfAccess":"1"}',
+        proxy: 'http://proxyhost:8080/'
+      };
+
+      postStub.returns('success');
+
+      expect(() => {
+        testHarness.createUser(extendedArgs, proxy);
+      }).to.not.throw();
+
+      expect(request.post.calledWith(`${idamApiUrl}/testing-support/accounts`, expectedOptions)).to.equal(true);
     });
   });
 
