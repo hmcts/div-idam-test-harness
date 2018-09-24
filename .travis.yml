@@ -1,0 +1,17 @@
+language: node_js
+node_js:
+- '8'
+cache: yarn
+script:
+- yarn --version
+- yarn check --integrity
+- yarn test
+
+deploy:
+  provider: npm
+  email: jenkins-reform@HMCTS.NET
+  api_key:
+    secure: FmOlkV/02sCnGhAla9Yf8bDjZPKrvp2DA8OClxlbt6L3U5pDfNYU+C9KNDqI/2GI49Ln5Zw/q/yEB4D2OHVZWfLc/mTWpzjNPwLlqUc2+lGeuXfHAddTLOJRLelrjJfIrXBlr9t/8EZS7D/XbfC/Qcnol5SGGPrAb2/wRssa4TEZyuPs0Vn5Ij6gQtghYOSZSh+YahuS9P7/+4qaufmzUV9/Wg5tz65j35V203o7B6wEEJxNjIZfM8Ao77hwsV93zjW2NBCwMu8SgF9l1TVejbxr5c/PdcfvFs+um0XlWbipxErHk2DAoe+63yrRFWcmKZ7Hn/06340Ywoy8GE6dlqbXD6M1l5L3EXXnpaPR5f/2fWjzzPHuSfOQlW24g4yOzBilOmndFLKb6P0IMJmzqUbz9ivV5Nnrssc0fS5y2oFunJEj7GX65HJXyBh3fnRqTjJlU4Ay3ukNas3rFR10QtQ5thh7oWbwjR8L9ogXBIVo4iXynx+pY9rAEfpMc+O5SSwr1y3qproezvHSV/A5IB0fEZXb60JYDKvm0Ug7gu25U+2vA6XaShm49qCFSgrObLTAzxHYliJ+D+d+OxGi5oar+JctHNgVZjaeW9NDGI+Ekb+6K6ntl4ylqDMiKcQ1dh4ZWHhUeggCSsJszGJTDZBnjSrXVTTXj9A/LOsLdes=
+  on:
+    tags: true
+    repo: hmcts/div-idam-test-harness
