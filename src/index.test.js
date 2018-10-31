@@ -203,4 +203,75 @@ describe('test harness unit tests', () => {
       expect(request.delete.calledWith(`${idamApiUrl}/accounts/mail@example.com`)).to.equal(true);
     });
   });
+
+  describe('#getToken', () => {
+    beforeEach(() => {
+      args = {
+        idamApiUrl,
+        idamClientID: 'some-client-id',
+        idamSecret: 'some-secret',
+        redirectUri: 'some-redirect-uri'
+      };
+      postStub = sinon.stub(request, 'post');
+    });
+
+    afterEach(() => {
+      postStub.restore();
+    });
+
+    it('does not return an error when getting a token', done => {
+      postStub.onFirstCall()
+        .resolves({ code: '123' });
+      postStub.onSecondCall()
+        .returns('some-token-response');
+
+      testHarness.getToken(args)
+        .then(response => {
+          expect(request.post.calledWith(`${idamApiUrl}/oauth2/authorize?response_type=code&client_id=some-client-id&redirect_uri=some-redirect-uri`))
+            .to.equal(true);
+          expect(request.post.calledWith(`${idamApiUrl}/oauth2/token?code=123&grant_type=authorization_code&client_id=some-client-id&redirect_uri=some-redirect-uri&client_secret=some-secret`))
+            .to.equal(true);
+          expect(response)
+            .to.equal('some-token-response');
+          done();
+        })
+        .catch(error => {
+          done(error);
+        });
+    });
+
+    it('returns an error when request fails', () => {
+      postStub.throws();
+
+      expect(() => {
+        testHarness.getToken(args);
+      }).to.throw();
+    });
+
+    it('makes the post call using the passed in params', done => {
+      const extendedArgs = Object.assign({}, args, {
+        authorizeEndpoint: '/auth-endpoint',
+        tokenEndpoint: '/token-endpoint'
+      });
+
+      postStub.onFirstCall()
+        .resolves({ code: '123' });
+      postStub.onSecondCall()
+        .returns('some-token-response');
+
+      testHarness.getToken(extendedArgs)
+        .then(response => {
+          expect(request.post.calledWith(`${idamApiUrl}/auth-endpoint?response_type=code&client_id=some-client-id&redirect_uri=some-redirect-uri`))
+            .to.equal(true);
+          expect(request.post.calledWith(`${idamApiUrl}/token-endpoint?code=123&grant_type=authorization_code&client_id=some-client-id&redirect_uri=some-redirect-uri&client_secret=some-secret`))
+            .to.equal(true);
+          expect(response)
+            .to.equal('some-token-response');
+          done();
+        })
+        .catch(error => {
+          done(error);
+        });
+    });
+  });
 });
