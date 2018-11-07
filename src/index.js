@@ -149,6 +149,28 @@ const getToken = (args, proxy) => {
     });
 };
 
+const generatePin = (args, proxy) => {
+  const requestBody = {
+    firstName: args.firstName || 'first-name',
+    lastName: args.lastName || 'last-name',
+    roles: args.roles || []
+  };
+  const endpoint = args.generatePinEndpoint || '/pin';
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${args.accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: requestBody,
+    json: true
+  };
+  if (proxy) {
+    Object.assign(options, setupProxy(proxy));
+  }
+  return request.post(args.idamApiUrl + endpoint, options);
+};
+
 module.exports = {
   onAuthenticate,
   onLanding,
@@ -157,5 +179,6 @@ module.exports = {
   restore,
   createUser,
   removeUser,
-  getToken
+  getToken,
+  generatePin
 };

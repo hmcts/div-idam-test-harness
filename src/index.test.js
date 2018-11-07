@@ -274,4 +274,48 @@ describe('test harness unit tests', () => {
         });
     });
   });
+
+  describe('#generatePin', () => {
+    beforeEach(() => {
+      args = { idamApiUrl };
+      postStub = sinon.stub(request, 'post');
+    });
+
+    afterEach(() => {
+      postStub.restore();
+    });
+
+    it('does not return an error when generating a pin', () => {
+      postStub.returns('success');
+
+      expect(() => {
+        testHarness.generatePin(args);
+      }).to.not.throw();
+      expect(request.post.calledWith(`${idamApiUrl}/pin`)).to.equal(true);
+    });
+
+    it('returns an error when trying to generate throws an error', () => {
+      postStub.throws();
+
+      expect(() => {
+        testHarness.generatePin(args);
+      }).to.throw();
+    });
+
+    it('makes the post call using the passed in params', () => {
+      const extendedArgs = Object.assign({}, args, {
+        generatePinEndpoint: '/some-pin-endpoint',
+        firstName: 'some-first-name',
+        lastName: 'some-last-name',
+        roles: ['123']
+      });
+
+      postStub.returns('success');
+
+      expect(() => {
+        testHarness.generatePin(extendedArgs);
+      }).to.not.throw();
+      expect(request.post.calledWith(`${idamApiUrl}/some-pin-endpoint`)).to.equal(true);
+    });
+  });
 });
