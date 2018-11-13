@@ -65,7 +65,8 @@ const createUser = (args, proxy) => {
     surname: args.testSurname || 'User',
     userGroup: { code: userGroup },
     password: args.testPassword || 'passWord123!',
-    levelOfAccess: args.testLevelOfAccess || '1'
+    levelOfAccess: args.testLevelOfAccess || '1',
+    roles: args.roles || []
   };
 
   const options = {
