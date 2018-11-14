@@ -2,49 +2,14 @@
 
 @Library("Infrastructure")
 
-// buildNode {
-//   checkoutRepo()
+def type = "nodejs"
 
-//   try {
-//     make 'install', name: 'Install dependencies'
-//     make 'test', name: 'Test'
+def product = "div"
 
-//     stage('Sonar scanner') {
-//       onPR {
-//         make 'sonar-scan-pr', name: 'Sonar Scan'
-//       }
+def component = "div-idam-test-harness"
 
-//       onMaster {
-//         make 'sonar-scan', name: 'Sonar Scan'
-//       }
-//     }
+def channel = '#div-dev'
 
-//   } finally {
-//     make 'clean'
-//   }
-
-//   onPR {
-//     enforceVersionBump()
-//   }
-
-//   onMaster {
-//     publishNodePackage()
-//   }
-// }
-
-// withPipeline(type , product, component) {
-//     echo ("I'm in");
-//     // if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
-//     //     enableDockerBuild()
-//     //     enableDeployToAKS()
-//     // }
-
-//     // loadVaultSecrets(secrets)
-//     // setVaultName('div')
-
-//     // after('checkout') {
-//     //     echo '${product}-${component} checked out'
-//     // }
-
-//     // enableSlackNotifications(channel)
-// }
+withPipeline(type, product, component) {
+  enableSlackNotifications(channel)
+}
