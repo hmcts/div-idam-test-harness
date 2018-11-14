@@ -1,6 +1,6 @@
 #!groovy
 
-@Library('Divorce')
+@Library("Infrastructure")
 
 buildNode {
   checkoutRepo()
