@@ -2,10 +2,13 @@ language: node_js
 node_js:
 - '8'
 cache: yarn
+addons:
+  sonarcloud:
 script:
 - yarn --version
 - yarn check --integrity
 - yarn test
+- sonar-scanner
 
 deploy:
   provider: npm
