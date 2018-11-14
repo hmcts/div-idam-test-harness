@@ -32,19 +32,19 @@
 //   }
 // }
 
-withPipeline(type , product, component) {
-    echo ("I'm in");
-    // if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
-    //     enableDockerBuild()
-    //     enableDeployToAKS()
-    // }
+// withPipeline(type , product, component) {
+//     echo ("I'm in");
+//     // if (env.CHANGE_TITLE && !env.CHANGE_TITLE.startsWith('[PREVIEW]')) {
+//     //     enableDockerBuild()
+//     //     enableDeployToAKS()
+//     // }
 
-    // loadVaultSecrets(secrets)
-    // setVaultName('div')
+//     // loadVaultSecrets(secrets)
+//     // setVaultName('div')
 
-    // after('checkout') {
-    //     echo '${product}-${component} checked out'
-    // }
+//     // after('checkout') {
+//     //     echo '${product}-${component} checked out'
+//     // }
 
-    // enableSlackNotifications(channel)
-}
+//     // enableSlackNotifications(channel)
+// }
