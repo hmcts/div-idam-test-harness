@@ -8,6 +8,7 @@ script:
 - yarn --version
 - yarn check --integrity
 - yarn test
+- sonar-scanner
 
 deploy:
   provider: npm
