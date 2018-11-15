@@ -10,16 +10,12 @@ A test harness for the IDAM-Express-Middleware
 
 ## Installation
 
-As of now, this module is published only in a private repository.
-We are working on publishing this project to NPM.
-Until then, the package can be installed from its github URL, examples:
-
 ```bash
 # Install the latest version
-yarn add https://github.com/hmcts/div-idam-test-harness
+yarn add "@hmcts/div-idam-test-harness"
 
 # Install a specific version
-yarn add https://github.com/hmcts/div-idam-test-harness#1.0.11
+yarn add "@hmcts/div-idam-test-harness@1.2.1"
 ```
 
 
