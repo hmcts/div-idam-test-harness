@@ -65,7 +65,8 @@ const createUser = (args, proxy) => {
     surname: args.testSurname || 'User',
     userGroup: { code: userGroup },
     password: args.testPassword || 'passWord123!',
-    levelOfAccess: args.testLevelOfAccess || '1'
+    levelOfAccess: args.testLevelOfAccess || '1',
+    roles: args.roles || []
   };
 
   const options = {
@@ -92,6 +93,85 @@ const removeUser = (args, proxy) => {
   return request.delete(`${args.idamApiUrl + endpoint}/${email}`, options);
 };
 
+const argsToUrlParams = args => {
+  return Object.entries(args)
+    .map(param => {
+      return param.join('=');
+    })
+    .join('&');
+};
+
+const authorize = (args, proxy) => {
+  const params = argsToUrlParams({
+    response_type: 'code',
+    client_id: args.idamClientID,
+    redirect_uri: args.redirectUri
+  });
+  const endpoint = args.authorizeEndpoint || '/oauth2/authorize';
+
+  const email = args.testEmail || 'testUser@example.com';
+  const password = args.testPassword;
+
+  const authHeader = Buffer.from(`${email}:${password}`)
+    .toString('base64');
+
+  const options = {
+    headers: { Authorization: `Basic ${authHeader}` },
+    json: true
+  };
+
+  if (proxy) {
+    Object.assign(options, setupProxy(proxy));
+  }
+  return request.post(`${args.idamApiUrl + endpoint}?${params}`, options);
+};
+
+const getToken = (args, proxy) => {
+  return authorize(args, proxy)
+    .then(response => {
+      const code = response.code;
+      const params = argsToUrlParams({
+        code,
+        grant_type: 'authorization_code',
+        client_id: args.idamClientID,
+        redirect_uri: args.redirectUri,
+        client_secret: args.idamSecret
+      });
+      const endpoint = args.tokenEndpoint || '/oauth2/token';
+
+      const options = {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        json: true
+      };
+      if (proxy) {
+        Object.assign(options, setupProxy(proxy));
+      }
+      return request.post(`${args.idamApiUrl + endpoint}?${params}`, options);
+    });
+};
+
+const generatePin = (args, proxy) => {
+  const requestBody = {
+    firstName: args.firstName || 'first-name',
+    lastName: args.lastName || 'last-name',
+    roles: args.roles || []
+  };
+  const endpoint = args.generatePinEndpoint || '/pin';
+
+  const options = {
+    headers: {
+      Authorization: `Bearer ${args.accessToken}`,
+      'Content-Type': 'application/json'
+    },
+    body: requestBody,
+    json: true
+  };
+  if (proxy) {
+    Object.assign(options, setupProxy(proxy));
+  }
+  return request.post(args.idamApiUrl + endpoint, options);
+};
+
 module.exports = {
   onAuthenticate,
   onLanding,
@@ -99,5 +179,7 @@ module.exports = {
   stub,
   restore,
   createUser,
-  removeUser
+  removeUser,
+  getToken,
+  generatePin
 };

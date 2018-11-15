@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@hmcts/div-idam-express-middleware@https://github.com/hmcts/div-idam-express-middleware#3.0.4":
-  version "3.0.4"
-  resolved "https://github.com/hmcts/div-idam-express-middleware#22c5c3a144038eceafe5562b53a24e5655575432"
+"@hmcts/div-idam-express-middleware@^6.0.1":
+  version "6.2.2"
+  resolved "https://registry.yarnpkg.com/@hmcts/div-idam-express-middleware/-/div-idam-express-middleware-6.2.2.tgz#445dd4d123867b38970e403434d8948f89ff4c7e"
   dependencies:
     "@hmcts/nodejs-logging" "^2.2.0"
     request "^2.83.0"
