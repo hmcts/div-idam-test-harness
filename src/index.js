@@ -116,13 +116,17 @@ const authorize = (args, proxy) => {
     .toString('base64');
 
   const options = {
-    headers: { Authorization: `Basic ${authHeader}` },
+    headers: {
+      Authorization: `Basic ${authHeader}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
     json: true
   };
 
   if (proxy) {
     Object.assign(options, setupProxy(proxy));
   }
+
   return request.post(`${args.idamApiUrl + endpoint}?${params}`, options);
 };
 
@@ -143,6 +147,7 @@ const getToken = (args, proxy) => {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         json: true
       };
+
       if (proxy) {
         Object.assign(options, setupProxy(proxy));
       }
