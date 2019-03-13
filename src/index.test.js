@@ -306,8 +306,7 @@ describe('test harness unit tests', () => {
       const extendedArgs = Object.assign({}, args, {
         generatePinEndpoint: '/some-pin-endpoint',
         firstName: 'some-first-name',
-        lastName: 'some-last-name',
-        roles: ['123']
+        lastName: 'some-last-name'
       });
 
       postStub.returns('success');
