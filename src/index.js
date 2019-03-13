@@ -158,8 +158,7 @@ const getToken = (args, proxy) => {
 const generatePin = (args, proxy) => {
   const requestBody = {
     firstName: args.firstName || 'first-name',
-    lastName: args.lastName || 'last-name',
-    roles: args.roles || []
+    lastName: args.lastName || 'last-name'
   };
   const endpoint = args.generatePinEndpoint || '/pin';
 
