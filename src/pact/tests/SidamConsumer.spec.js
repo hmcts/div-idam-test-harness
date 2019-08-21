@@ -2,18 +2,15 @@
  * The following example is for Pact version 5
  */
 const path = require('path');
-const chai = require('chai');
+const { expect } = require('chai');
 const { Pact, Matchers } = require('@pact-foundation/pact');
-const chaiAsPromised = require('chai-as-promised');
 const config = require('../config');
 const getPort = require('get-port');
 const userDetails = require('@hmcts/div-idam-express-middleware');
 const httpStatusCodes = require('http-status-codes');
+const sinon = require('sinon');
 
-const assert = chai.assert;
 const { like } = Matchers;
-
-chai.use(chaiAsPromised);
 
 describe('Pact SidamService consumer', () => {
   // eslint-disable-next-line init-declarations
@@ -44,7 +41,7 @@ describe('Pact SidamService consumer', () => {
   // It also sets up expectations for what requests are to come, and will fail
   // if the calls are not seen.
   before(() => {
-    provider.setup();
+    return provider.setup();
   });
 
   // After each individual test (one or more interactions)
@@ -52,13 +49,13 @@ describe('Pact SidamService consumer', () => {
   // This ensures what we _expect_ from the provider, is actually
   // what we've asked for (and is what gets captured in the contract)
   afterEach(() => {
-    provider.verify();
+    return provider.verify();
   });
 
   describe('when a request for the idam user details', () => {
     describe('is required from a GET', () => {
       before(() => {
-        provider.addInteraction({
+        return provider.addInteraction({
           // The 'state' field specifies a 'Provider State'
           state: 'a valid user is logged on',
           uponReceiving: 'a request for the idam user details',
@@ -91,8 +88,18 @@ describe('Pact SidamService consumer', () => {
       });
 
       it('successfully returns details', done => {
-        const verificationPromise = userDetails.userDetails({ idamApiUrl: `http://localhost: ${MOCK_SERVER_PORT}` });
-        assert.eventually.ok(verificationPromise).notify(done);
+        const userDetailCall = userDetails.userDetails({ idamApiUrl: `http://localhost: ${MOCK_SERVER_PORT}` });
+
+        const nextStub = sinon.spy();
+        const req = { cookies: { '__auth-token': 'mycookie' } };
+        const res = {};
+
+        userDetailCall(req, res, nextStub);
+
+        // assert.equal(req.idam, { id : 1});
+        expect(nextStub.calledOnce).to.equal(true);
+        // assert.eventually.ok(nextStub).notify(done);
+        done();
       });
     });
   });

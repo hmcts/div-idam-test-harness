@@ -8,8 +8,6 @@ module.exports = {
       service_key: process.env.IDAM_SERVICE_KEY || 'AAAAAAAAAAAAAAAA',
       divorce_oauth2_client: 'divorce',
       divorce_oauth2_secret: process.env.IDAM_API_OAUTH2_CLIENT_CLIENT_SECRETS_DIVORCE || '123456',
-      divorce_oauth_callback_path: '/oauth2/callback',
-      divorce_oauth_token_path: '/oauth2/token',
       redirect_url: 'https://div-pfe-aat.service.core-compute-aat.internal/authenticated'
     },
     pact: {
