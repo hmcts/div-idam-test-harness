@@ -13,7 +13,7 @@
     "posttest-coverage": "istanbul check-coverage --statements 80 --branches 80 --functions 80 --lines 80",
     "test": "yarn lint && yarn test-coverage",
     "test:pact": "NODE_PATH=. LOG_LEVEL=error mocha 'src/pact/tests/*.spec.js' --timeout 15000 --reporter spec",
-    "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'pact/PublishPact.js' --timeout 15000 --reporter spec",
+    "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'src/pact/PublishPact.js' --timeout 15000 --reporter spec",
     "sonar-scanner": "sonar-scanner"
   },
   "pre-commit": [
