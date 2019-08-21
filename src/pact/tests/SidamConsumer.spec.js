@@ -30,7 +30,7 @@ describe('Pact SidamService consumer', () => {
       consumer: 'divorce_frontend',
       provider: 'sidam',
       port: MOCK_SERVER_PORT,
-      log: path.resolve(process.cwd(), 'logs', 'pactAuthoriseClient.log'),
+      log: path.resolve(process.cwd(), 'logs', 'pactIdamGetUserDetails.log'),
       dir: path.resolve(process.cwd(), config.services.pact.pactDirectory),
       logLevel: 'INFO',
       spec: 2
@@ -44,8 +44,6 @@ describe('Pact SidamService consumer', () => {
   // It also sets up expectations for what requests are to come, and will fail
   // if the calls are not seen.
   before(() => {
-    // eslint-disable-next-line no-console
-    console.log('before', provider);
     provider.setup();
   });
 
@@ -54,15 +52,11 @@ describe('Pact SidamService consumer', () => {
   // This ensures what we _expect_ from the provider, is actually
   // what we've asked for (and is what gets captured in the contract)
   afterEach(() => {
-    // eslint-disable-next-line no-console
-    console.log('afterAech', provider);
     provider.verify();
   });
 
   describe('when a request for the idam user details', () => {
     describe('is required from a GET', () => {
-      // eslint-disable-next-line no-console
-      console.log('descre', provider);
       before(() => {
         provider.addInteraction({
           // The 'state' field specifies a 'Provider State'
@@ -97,8 +91,6 @@ describe('Pact SidamService consumer', () => {
       });
 
       it('successfully returns details', done => {
-        // eslint-disable-next-line no-console
-        console.log('test', provider);
         const verificationPromise = userDetails.userDetails({ idamApiUrl: `http://localhost: ${MOCK_SERVER_PORT}` });
         assert.eventually.ok(verificationPromise).notify(done);
       });
@@ -107,8 +99,6 @@ describe('Pact SidamService consumer', () => {
 
   // Write pact files
   after(() => {
-    // eslint-disable-next-line no-console
-    console.log('after', provider);
     return provider.finalize();
   });
 });
