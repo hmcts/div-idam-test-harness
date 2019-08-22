@@ -2,7 +2,8 @@
  * The following example is for Pact version 5
  */
 const path = require('path');
-const { expect } = require('chai');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 const { Pact, Matchers } = require('@pact-foundation/pact');
 const config = require('../config');
 const getPort = require('get-port');
@@ -11,6 +12,9 @@ const httpStatusCodes = require('http-status-codes');
 const sinon = require('sinon');
 
 const { like } = Matchers;
+
+const expect = chai.expect;
+chai.use(chaiAsPromised);
 
 describe('Pact SidamService consumer', () => {
   // eslint-disable-next-line init-declarations
@@ -61,11 +65,11 @@ describe('Pact SidamService consumer', () => {
           uponReceiving: 'a request for the idam user details',
           withRequest: {
             method: 'GET',
-            path: '/details',
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: like('Bearer myCookie')
-            }
+            path: '/details'
+            // headers: {
+            //   'Content-Type': 'application/json',
+            //   Authorization: like('Bearer mycookie')
+            // }
           },
           willRespondWith: {
             status: httpStatusCodes.OK,
@@ -75,10 +79,10 @@ describe('Pact SidamService consumer', () => {
               defaultService: like('CCD'),
               id: like(MOCK_USER_ID),
               roles: like([
-                'caseworker-probate',
+                'caseworker-divorce',
                 'citizen',
                 'caseworker',
-                'caseworker-probate-loa1',
+                'caseworker-divorce-loa1',
                 'citizen-loa1',
                 'caseworker-loa1'
               ])
@@ -94,12 +98,10 @@ describe('Pact SidamService consumer', () => {
         const req = { cookies: { '__auth-token': 'mycookie' } };
         const res = {};
 
-        userDetailCall(req, res, nextStub);
+        const r = userDetailCall(req, res, nextStub);
 
-        // assert.equal(req.idam, { id : 1});
-        expect(nextStub.calledOnce).to.equal(true);
-        // assert.eventually.ok(nextStub).notify(done);
-        done();
+        // eslint-disable-next-line no-undefined
+        expect(r).to.eventually.eql(undefined).notify(done);
       });
     });
   });
