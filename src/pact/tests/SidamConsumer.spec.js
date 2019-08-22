@@ -64,7 +64,7 @@ describe('Pact SidamService consumer', () => {
             path: '/details',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: like('Bearer securityCookie')
+              Authorization: like('Bearer myCookie')
             }
           },
           willRespondWith: {
@@ -88,7 +88,7 @@ describe('Pact SidamService consumer', () => {
       });
 
       it('successfully returns details', done => {
-        const userDetailCall = userDetails.userDetails({ idamApiUrl: `http://localhost: ${MOCK_SERVER_PORT}` });
+        const userDetailCall = userDetails.userDetails({ idamApiUrl: `http://localhost:${MOCK_SERVER_PORT}` });
 
         const nextStub = sinon.spy();
         const req = { cookies: { '__auth-token': 'mycookie' } };
