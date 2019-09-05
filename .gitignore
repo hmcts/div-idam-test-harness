@@ -5,5 +5,4 @@ coverage
 npm-debug.log
 yarn-*.log
 .scannerwork
-pacts
 logs
