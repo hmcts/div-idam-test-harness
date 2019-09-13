@@ -14,7 +14,9 @@
     "test": "yarn lint && yarn test-coverage",
     "test:pact": "NODE_PATH=. LOG_LEVEL=error mocha 'src/pact/tests/*.spec.js' --timeout 15000 --reporter spec",
     "publish-pact": "NODE_PATH=. LOG_LEVEL=error mocha 'src/pact/PublishPact.js' --timeout 15000 --reporter spec",
-    "sonar-scanner": "sonar-scanner"
+    "sonar-scanner": "sonar-scanner",
+    "broker": "docker-compose -f broker-compose.yaml up -d",
+    "broker:stop": "docker-compose -f broker-compose.yaml down"
   },
   "pre-commit": [
     "lint"

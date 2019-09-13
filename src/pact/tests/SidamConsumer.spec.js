@@ -2,8 +2,7 @@
  * The following example is for Pact version 5
  */
 const path = require('path');
-const chai = require('chai');
-const chaiAsPromised = require('chai-as-promised');
+const { expect } = require('chai');
 const { Pact, Matchers } = require('@pact-foundation/pact');
 const config = require('../config');
 const getPort = require('get-port');
@@ -12,9 +11,9 @@ const httpStatusCodes = require('http-status-codes');
 const sinon = require('sinon');
 
 const { like } = Matchers;
-
-const expect = chai.expect;
-chai.use(chaiAsPromised);
+const startPort = 1024;
+const endPort = 4000;
+const testTimeout = 1000;
 
 describe('Pact SidamService consumer', () => {
   // eslint-disable-next-line init-declarations
@@ -24,7 +23,7 @@ describe('Pact SidamService consumer', () => {
 
   const MOCK_USER_ID = 41;
 
-  getPort().then(portNumber => {
+  getPort({ port: getPort.makeRange(startPort, endPort) }).then(portNumber => {
     MOCK_SERVER_PORT = portNumber;
     // (1) Create the Pact object to represent your provider
     provider = new Pact({
@@ -98,10 +97,32 @@ describe('Pact SidamService consumer', () => {
         const req = { cookies: { '__auth-token': 'mycookie' } };
         const res = {};
 
-        const r = userDetailCall(req, res, nextStub);
-
-        // eslint-disable-next-line no-undefined
-        expect(r).to.eventually.eql(undefined).notify(done);
+        userDetailCall(req, res, nextStub);
+        // eslint-disable-next-line max-nested-callbacks
+        setTimeout(() => {
+          try {
+            expect(nextStub.calledOnce).to.eql(true);
+            expect(req.idam.userDetails).to.eql(
+              {
+                forename: 'User',
+                surname: 'Test',
+                defaultService: 'CCD',
+                id: 41,
+                roles:
+                  [
+                    'caseworker-divorce',
+                    'citizen',
+                    'caseworker',
+                    'caseworker-divorce-loa1',
+                    'citizen-loa1',
+                    'caseworker-loa1'
+                  ]
+              });
+          } catch(e) {
+            done(e);
+          }
+          done();
+        }, testTimeout);
       });
     });
   });
