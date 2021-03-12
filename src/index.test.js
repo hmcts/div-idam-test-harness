@@ -126,7 +126,7 @@ describe('test harness unit tests', () => {
 
       const expectedOptions = {
         headers: { 'Content-Type': 'application/json' },
-        body: '{"email":"testUser@example.com","forename":"Test","surname":"User","userGroup":{"code":"test"},"password":"passWord123!","levelOfAccess":"1","roles":[]}',
+        body: '{"email":"testUser@example.com","forename":"Test","surname":"User","password":"passWord123!","levelOfAccess":"1","roles":[]}',
         strictSSL: false,
         agentClass: socksAgent,
         socksHost: 'proxyhost',
@@ -148,7 +148,7 @@ describe('test harness unit tests', () => {
 
       const expectedOptions = {
         headers: { 'Content-Type': 'application/json' },
-        body: '{"email":"testUser@example.com","forename":"Test","surname":"User","userGroup":{"code":"test"},"password":"passWord123!","levelOfAccess":"1","roles":["role1","role2"]}',
+        body: '{"email":"testUser@example.com","forename":"Test","surname":"User","password":"passWord123!","levelOfAccess":"1","roles":["role1","role2"]}',
         proxy: 'http://proxyhost:8080/'
       };
 
