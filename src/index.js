@@ -57,13 +57,11 @@ const setupProxy = proxy => {
 
 const createUser = (args, proxy) => {
   const endpoint = args.accountsEndpoint || '/testing-support/accounts';
-  const userGroup = args.testGroupCode || 'divorce-private-beta';
   // Minimum required fields
   const user = {
     email: args.testEmail || 'testUser@example.com',
     forename: args.testForename || 'Test',
     surname: args.testSurname || 'User',
-    userGroup: { code: userGroup },
     password: args.testPassword || 'passWord123!',
     levelOfAccess: args.testLevelOfAccess || '1',
     roles: args.roles || []
