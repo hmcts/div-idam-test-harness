@@ -24,3 +24,8 @@ yarn add "@hmcts/div-idam-test-harness@1.2.1"
 Require this module in your tests and call `idamExpressTestHarness.stub()` before the app is initialised.
 
 Remember to call `.restore()` after every test.
+
+
+## Publishing to NPM
+
+To publish this artefact to NPM, just create a release in GitHub. GitHub Actions will publish a version in NPM matching the version the packages.json file.
