@@ -18,7 +18,7 @@
     "lint"
   ],
   "dependencies": {
-    "@hmcts/div-idam-express-middleware": "^6.5.0",
+    "@hmcts/div-idam-express-middleware": "^6.6.2",
     "request": "^2.88.0",
     "request-promise-native": "^1.0.7",
     "socks5-https-client": "^1.2.1"

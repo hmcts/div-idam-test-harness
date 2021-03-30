@@ -2,14 +2,17 @@
 # yarn lockfile v1
 
 
-"@hmcts/div-idam-express-middleware@^6.5.0":
-  version "6.5.0"
-  resolved "https://registry.yarnpkg.com/@hmcts/div-idam-express-middleware/-/div-idam-express-middleware-6.5.0.tgz#357020b9d73d013268338ba9469540e2e839fee6"
-  integrity sha512-M0w0ff6hXr3gOVgERMHLUI4Eg1OCYPe8CQnGHkWsE1GAxcqNHqz9CV6H8rkDMSNrh/0TS+It4Vh64QQwZYRTFw==
+"@hmcts/div-idam-express-middleware@^6.6.2":
+  version "6.6.2"
+  resolved "https://registry.yarnpkg.com/@hmcts/div-idam-express-middleware/-/div-idam-express-middleware-6.6.2.tgz#0f1f03567463fc849b8a1c1877351d79242370e9"
+  integrity sha512-y3RG9B2CDAWTQLWRLKVRcSXIWWSt2NP4JsMBZPzPdYvh6LSmi58oRzvrdSg2dGgR6TLCiHoWmbTvUgJUsY+sGw==
   dependencies:
     "@hmcts/nodejs-logging" "^3.0.0"
+    diff "^3.5.0"
     jwt-decode "^2.2.0"
-    request "^2.83.0"
+    mem "^4.0.0"
+    request "^2.88.0"
+    request-promise-core "^1.1.2"
     request-promise-native "^1.0.5"
     uuid "^3.1.0"
 
@@ -1183,6 +1186,11 @@ lodash@^4.17.11, lodash@^4.17.15, lodash@^4.17.4, lodash@^4.3.0:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
 
+lodash@^4.17.19:
+  version "4.17.20"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.20.tgz#b44a9b6297bcb698f1c51a3545a2b3b368d59c52"
+  integrity sha512-PlhdFcillOINfeV7Ni6oF1TAEayyZBoZ8bcshTHqOYJYlrqzRK5hagpagky5o4HfCzzd1TRkXPMFq6cKk9rGmA==
+
 log-symbols@2.2.0:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/log-symbols/-/log-symbols-2.2.0.tgz#5740e1c5d6f0dfda4ad9323b5332107ef6b4c40a"
@@ -1623,6 +1631,13 @@ request-promise-core@1.1.2:
   dependencies:
     lodash "^4.17.11"
 
+request-promise-core@^1.1.2:
+  version "1.1.4"
+  resolved "https://registry.yarnpkg.com/request-promise-core/-/request-promise-core-1.1.4.tgz#3eedd4223208d419867b78ce815167d10593a22f"
+  integrity sha512-TTbAfBBRdWD7aNNOoVOBH4pN/KigV6LyapYNNlAPA8JwbovRti1E88m3sYAwsLi5ryhPKsE9APwnjFTgdUjTpw==
+  dependencies:
+    lodash "^4.17.19"
+
 request-promise-native@^1.0.5, request-promise-native@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/request-promise-native/-/request-promise-native-1.0.7.tgz#a49868a624bdea5069f1251d0a836e0d89aa2c59"
@@ -1632,7 +1647,7 @@ request-promise-native@^1.0.5, request-promise-native@^1.0.7:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@^2.83.0, request@^2.88.0:
+request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
