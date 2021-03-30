@@ -1,0 +1,59 @@
+{
+  "consumer": {
+    "name": "divorce_frontend"
+  },
+  "provider": {
+    "name": "sidam"
+  },
+  "interactions": [
+    {
+      "description": "a request for the idam user details",
+      "providerState": "a valid user is logged on",
+      "request": {
+        "method": "GET",
+        "path": "/details"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "forename": "User",
+          "surname": "Test",
+          "defaultService": "CCD",
+          "id": 41,
+          "roles": [
+            "caseworker-divorce",
+            "citizen",
+            "caseworker",
+            "caseworker-divorce-loa1",
+            "citizen-loa1",
+            "caseworker-loa1"
+          ]
+        },
+        "matchingRules": {
+          "$.body.forename": {
+            "match": "type"
+          },
+          "$.body.surname": {
+            "match": "type"
+          },
+          "$.body.defaultService": {
+            "match": "type"
+          },
+          "$.body.id": {
+            "match": "type"
+          },
+          "$.body.roles": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}
